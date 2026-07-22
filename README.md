@@ -15,6 +15,24 @@ A collection of Star Wars-inspired themes for the GRUB2 bootloader. These themes
 
 ## Installation
 
+### NixOS (flakes)
+
+1.  Add this repo as a flake input.
+
+2.  Set `boot.loader.grub.theme`:
+    ```nix
+    { inputs, pkgs, ... }: {
+      boot.loader.grub.theme = let
+        system = pkgs.stdenv.hostPlatform.system;
+        themePkgs = inputs.boot-wars-grub.packages.${system};
+        themeName = "rebel_hangar";
+      in
+        "${themePkgs.${themeName}}/theme";
+    }
+    ```
+
+### Other distros (manual)
+
 1.  Clone the repository:
     ```bash
     git clone https://github.com/SaharaSurfer/boot-wars-grub.git
